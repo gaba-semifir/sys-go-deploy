@@ -43,11 +43,10 @@ func main() {
 	fmt.Println("Format : <nom>:<port>")
 	var path_registry string
 	fmt.Scanln(&path_registry)
-	fmt.Println("Début du build...")
+	path_recursion(path_dockerfile, path_registry)
 	fmt.Println("---")
 	fmt.Println("")
 	fmt.Println("---")
-	path_recursion(path_dockerfile, path_registry)
 
 }
 
@@ -70,8 +69,19 @@ func path_recursion(path_dockerfile string, path_registry string) {
 			return err
 		}
 		if strings.HasSuffix(path_dockerfile, "Dockerfile") {
+			fmt.Println("Début du build...")
+			time.Sleep(2 * time.Second)
+			fmt.Println("---")
+			fmt.Println("")
+			fmt.Println("---")
 			fmt.Println(path_dockerfile)
 			tag_docker := build(path_dockerfile, path_registry)
+			fmt.Println("Début du push...")
+			time.Sleep(2 * time.Second)
+			fmt.Println("---")
+			fmt.Println("")
+			fmt.Println("---")
+			fmt.Println(path_dockerfile)
 			push(path_registry, tag_docker)
 		}
 		return nil
